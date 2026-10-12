@@ -1,0 +1,282 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IIIT Hub Canteen</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="logo">
+            <span class="logo-icon">✦</span>
+            IIIT <span>HUB</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#menu">Explore Menu</a>
+            <a href="#categories">Categories</a>
+        </div>
+
+        <div class="nav-actions">
+            <button class="icon-btn" onclick="showToast('Sign in to save your favourites!')">♡</button>
+
+            <button class="login-btn" id="login-nav-btn" onclick="openAuth('login')">Log in</button>
+
+            <button class="signup-btn" id="signup-nav-btn" onclick="openAuth('signup')">Sign up ↗</button>
+
+            <button class="login-btn" id="profile-nav-btn" onclick="showProfile()" hidden>
+                👤 <span id="nav-user-name">Profile</span>
+            </button>
+
+            <button class="cart-btn" onclick="showCart()">
+                🛒 Cart <span id="cart-count">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <div class="eyebrow">FRESHLY MADE ON CAMPUS</div>
+                <h1>Good food.<br><span>Great campus</span><br>days.</h1>
+                <p>Your favourite bites, made fresh and delivered right where campus life happens.</p>
+                <div class="hero-buttons">
+                    <a href="#menu" class="primary-btn">Explore Menu ↗</a>
+                    <span class="delivery-note">✦ Made for students</span>
+                </div>
+                <div class="hero-stats">
+                    <div><strong>Fresh</strong><small>Every single day</small></div>
+                    <div><strong>Easy</strong><small>Quick ordering</small></div>
+                    <div><strong>Yours</strong><small>Your campus canteen</small></div>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="image-orbit orbit-one"></div>
+                <div class="image-orbit orbit-two"></div>
+                <div class="food-image">
+                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1000&q=85" alt="Burger">
+                </div>
+                <div class="floating-card rating-card">
+                    <span class="rating-star">★</span>
+                    <div><strong>Made with love</strong><small>Every bite counts</small></div>
+                </div>
+                <div class="floating-card fresh-card">
+                    <span>🥬</span>
+                    <div><strong>Fresh bites</strong><small>Happy campus days</small></div>
+                </div>
+                <div class="hero-number">01 / FRESH FAVOURITES</div>
+            </div>
+        </section>
+
+        <section class="categories section-wrap" id="categories">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">FIND YOUR CRAVING</span>
+                    <h2>What's on your mind?</h2>
+                </div>
+                <span class="heading-note">A little something for every mood.</span>
+            </div>
+
+            <div class="category-list">
+                <button class="category active" onclick="filterFood('All', this)">✳ All items</button>
+                <button class="category" onclick="filterFood('Burger', this)">🍔 Burgers</button>
+                <button class="category" onclick="filterFood('Pizza', this)">🍕 Pizza</button>
+                <button class="category" onclick="filterFood('Noodles', this)">🍜 Noodles</button>
+                <button class="category" onclick="filterFood('Sandwich', this)">🥪 Sandwiches</button>
+                <button class="category" onclick="filterFood('Drinks', this)">🥤 Drinks</button>
+                <button class="category" onclick="filterFood('Dessert', this)">🍰 Desserts</button>
+            </div>
+        </section>
+
+        <section class="menu-section section-wrap" id="menu">
+            <div class="section-heading menu-heading">
+                <div>
+                    <span class="eyebrow">THE CAMPUS CLASSICS</span>
+                    <h2>Campus favourites<span class="orange-dot">.</span></h2>
+                    <p class="section-description">The good stuff, all in one place.</p>
+                </div>
+                <label class="search-box">
+                    <span>⌕</span>
+                    <input id="food-search" type="search" placeholder="Find your favourite..." oninput="searchFood()">
+                </label>
+            </div>
+
+            <div class="food-grid" id="food-grid"></div>
+            <p id="empty-message" class="empty-message" hidden>No food found. Try another search!</p>
+        </section>
+
+        <section class="bottom-banner">
+            <div>
+                <span class="eyebrow">YOUR BREAK, YOUR WAY</span>
+                <h2>Study hard. Eat happy.</h2>
+                <p>From quick bites between lectures to late-day cravings.</p>
+            </div>
+            <a href="#menu" class="banner-btn">Find your next bite ↗</a>
+        </section>
+    </main>
+
+    <footer>
+        <a href="/" class="logo footer-logo">✦ IIIT <span>HUB</span></a>
+        <p>Made for campus life. Made for you.</p>
+        <span>IIIT Hub Canteen © 2026</span>
+    </footer>
+
+    <div class="auth-overlay" id="auth-overlay">
+        <div class="auth-modal">
+            <button class="auth-close" onclick="closeAuth()" aria-label="Close">&times;</button>
+            <div class="auth-brand">✦ IIIT HUB</div>
+            <div class="auth-icon">🥗</div>
+            <h2 id="auth-title">Welcome back!</h2>
+            <p id="auth-subtitle">Your favourite campus bites await.</p>
+
+            <form id="auth-form">
+                <div id="name-field" class="form-field" hidden>
+                    <label for="auth-name">Full name</label>
+                    <input id="auth-name" type="text" placeholder="Enter your full name">
+                </div>
+
+                <div class="form-field">
+                    <label for="auth-email">College email</label>
+                    <input id="auth-email" type="email" placeholder="you@example.com" required>
+                </div>
+
+                <div class="form-field">
+                    <label for="auth-password">Password</label>
+                    <input id="auth-password" type="password" placeholder="Enter your password" minlength="8" required>
+                </div>
+
+                <button type="submit" class="auth-submit" id="auth-submit">Log in →</button>
+                <p class="auth-message" id="auth-message" role="status"></p>
+            </form>
+
+            <p class="auth-switch">
+                <span id="auth-switch-text">New to IIIT Hub?</span>
+                <button type="button" id="auth-switch-button" onclick="switchAuth()">Create account</button>
+            </p>
+            <p class="auth-terms">By continuing, you agree to our Terms & Privacy Policy.</p>
+        </div>
+    </div>
+
+    <div class="auth-overlay" id="profile-overlay">
+        <div class="auth-modal">
+            <button class="auth-close" onclick="closeProfile()" aria-label="Close">&times;</button>
+            <div class="auth-brand">✦ IIIT HUB</div>
+            <div class="auth-icon">👤</div>
+            <h2>My Profile</h2>
+            <p>Your campus account details</p>
+
+            <div class="form-field">
+                <label>Full name</label>
+                <p id="profile-name">-</p>
+            </div>
+
+            <div class="form-field">
+                <label>Email address</label>
+                <p id="profile-email">-</p>
+            </div>
+
+            <button type="button" class="auth-submit" onclick="logoutUser()">Log out</button>
+        </div>
+    </div>
+    
+
+
+
+    
+<!-- CART OVERLAY -->
+<div class="auth-overlay" id="cart-overlay">
+    <div class="auth-modal cart-modal">
+        <button type="button" class="auth-close"
+            onclick="closeCart()" aria-label="Close">&times;</button>
+
+        <div class="auth-brand">✦ IIIT HUB</div>
+        <div class="auth-icon">🛒</div>
+
+        <h2>My Cart</h2>
+        <p>Your campus favourites, all in one place.</p>
+
+        <div id="cart-items"></div>
+
+        <h3 id="cart-total">Total: ₹0</h3>
+
+        <button type="button" class="auth-submit"
+            id="checkout-btn" onclick="startCheckout()" disabled>
+            Proceed to Checkout →
+        </button>
+    </div>
+</div>
+
+<!-- PAYMENT OVERLAY -->
+<div class="auth-overlay" id="payment-overlay">
+    <div class="auth-modal">
+        <button type="button" class="auth-close"
+            onclick="closePayment()" aria-label="Close">&times;</button>
+
+        <div class="auth-brand">✦ IIIT HUB</div>
+        <div class="auth-icon">💳</div>
+
+        <h2>Demo Payment</h2>
+        <p>This is a simulated payment for your project.</p>
+
+        <div class="form-field">
+            <label>Total Amount</label>
+            <h2 id="payment-total">₹0</h2>
+        </div>
+
+        <div class="form-field">
+            <label for="payment-method">Payment Method</label>
+            <select id="payment-method">
+                <option value="UPI">UPI (Demo)</option>
+                <option value="Card">Card (Demo)</option>
+                <option value="Cash">Cash (Demo)</option>
+            </select>
+        </div>
+
+        <p id="payment-message" role="status"></p>
+
+        <button type="button" class="auth-submit"
+            id="pay-now-btn" onclick="makeDummyPayment()">
+            Pay Now →
+        </button>
+
+        <button type="button" class="login-btn"
+            onclick="simulatePaymentFailure()">
+            Simulate Payment Failure
+        </button>
+    </div>
+</div>
+
+<!-- ORDER CONFIRMATION OVERLAY -->
+<div class="auth-overlay" id="order-overlay">
+    <div class="auth-modal">
+        <div class="auth-brand">✦ IIIT HUB</div>
+        <div class="auth-icon">✅</div>
+
+        <h2 id="order-result-title">Order Confirmed!</h2>
+        <p id="order-result-message"></p>
+
+        <div class="form-field">
+            <label>Order ID</label>
+            <p id="order-id"></p>
+        </div>
+
+        <div class="form-field">
+            <label>Payment Status</label>
+            <p id="order-payment-status"></p>
+        </div>
+
+        <button type="button" class="auth-submit"
+            onclick="finishOrder()">
+            Continue →
+        </button>
+    </div>
+</div>
+
+    <div class="toast" id="toast" role="status"></div>
+    <script src="/script.js"></script>
+</body>
+</html>
